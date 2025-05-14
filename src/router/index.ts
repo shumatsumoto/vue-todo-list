@@ -1,16 +1,24 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter } from "vue-router";
 
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
+import HomeView from "../views/HomeView.vue";
+import AboutView from "../views/AboutView.vue";
 
 const routes = [
-  { path: '/', component: HomeView },
-  { path: '/about', component: AboutView },
-]
+  {
+    path: "/",
+    name: "home",
+    component: HomeView,
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: AboutView,
+  },
+];
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
-})
+});
 
-export default router
+export default router;

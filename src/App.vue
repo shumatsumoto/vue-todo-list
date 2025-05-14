@@ -1,21 +1,17 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView, RouterLink } from "vue-router";
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="app">
+    <nav class="p-4 bg-gray-100">
+      <RouterLink to="/" class="mr-4">ホーム</RouterLink>
+      <RouterLink to="/about" class="mr-4">About</RouterLink>
+    </nav>
+    <div class="p-4">
+      <RouterView />
+    </div>
   </div>
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-  <HelloWorld msg="Vite + Vue" />
-  <RouterView />
 </template>
 
 <style scoped>
