@@ -22,6 +22,12 @@ const addTodo = () => {
   newTodo.value = "";
 };
 
+const deleteTodo = (id: number) => {
+  console.log("削除ボタンが押されました");
+  todos.value = todos.value.filter((todo) => todo.id !== id);
+  // todos.value = todos.value.filter((todo) => todo.id !== id);
+};
+
 const validate = () => {
   if (newTodo.value.trim() === "") {
     alert("タスクを入力してください");
@@ -56,7 +62,7 @@ const validate = () => {
     </form>
     <ul class="divide-y divide-gray-200 px-4">
       <li class="py-4" v-for="todo in todos" :key="todo.id">
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
           <input
             id="todo1"
             name="todo1"
@@ -71,6 +77,7 @@ const validate = () => {
           >
             <span class="text-lg font-medium">{{ todo.title }}</span>
           </label>
+          <button @click="deleteTodo(todo.id)" class="">削除</button>
         </div>
       </li>
     </ul>
