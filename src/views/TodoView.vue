@@ -1,4 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+
+const todos = ref([
+  { id: 1, title: "タイトル01", done: true },
+  { id: 2, title: "タイトル02", done: false },
+  { id: 3, title: "タイトル03", done: false },
+]);
+</script>
 
 <template>
   <div
@@ -23,43 +31,21 @@
       </div>
     </form>
     <ul class="divide-y divide-gray-200 px-4">
-      <li class="py-4">
+      <li class="py-4" v-for="todo in todos" :key="todo.id">
         <div class="flex items-center">
           <input
             id="todo1"
             name="todo1"
             type="checkbox"
             class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
-            :checked="true"
+            :checked="todo.done"
           />
-          <label for="todo1" class="ml-3 block text-gray-900 line-through">
-            <span class="text-lg font-medium">Finish project proposal</span>
-          </label>
-        </div>
-      </li>
-      <li class="py-4">
-        <div class="flex items-center">
-          <input
-            id="todo2"
-            name="todo2"
-            type="checkbox"
-            class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
-          />
-          <label for="todo2" class="ml-3 block text-gray-900">
-            <span class="text-lg font-medium">Buy groceries</span>
-          </label>
-        </div>
-      </li>
-      <li class="py-4">
-        <div class="flex items-center">
-          <input
-            id="todo3"
-            name="todo3"
-            type="checkbox"
-            class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
-          />
-          <label for="todo3" class="ml-3 block text-gray-900">
-            <span class="text-lg font-medium">Go for a run</span>
+          <label
+            for="todo1"
+            class="ml-3 block text-gray-900"
+            :class="{ 'line-through': todo.done }"
+          >
+            <span class="text-lg font-medium">{{ todo.title }}</span>
           </label>
         </div>
       </li>
