@@ -10,7 +10,9 @@ const todos = ref([
 const newTodo = ref("");
 
 const addTodo = () => {
-  console.log(newTodo.value);
+  if (!validate()) {
+    return;
+  }
   const todo = {
     id: todos.value.length + 1,
     title: newTodo.value,
@@ -18,6 +20,14 @@ const addTodo = () => {
   };
   todos.value.push(todo);
   newTodo.value = "";
+};
+
+const validate = () => {
+  if (newTodo.value.trim() === "") {
+    alert("タスクを入力してください");
+    return false;
+  }
+  return true;
 };
 </script>
 
