@@ -23,9 +23,15 @@ const addTodo = () => {
 };
 
 const deleteTodo = (id: number) => {
-  console.log("削除ボタンが押されました");
   todos.value = todos.value.filter((todo) => todo.id !== id);
   // todos.value = todos.value.filter((todo) => todo.id !== id);
+};
+
+const toggleTodo = (id: number) => {
+  const todo = todos.value.find((todo) => todo.id === id);
+  if (todo) {
+    todo.done = !todo.done;
+  }
 };
 
 const validate = () => {
@@ -69,6 +75,7 @@ const validate = () => {
             type="checkbox"
             class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
             :checked="todo.done"
+            @change="toggleTodo(todo.id)"
           />
           <label
             for="todo1"
