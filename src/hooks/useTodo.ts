@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 interface Todo {
   id: number;
@@ -7,13 +7,25 @@ interface Todo {
 }
 
 export default function useTodo() {
-  const todos = ref<Todo[]>([
-    { id: 1, title: "タイトル01", done: true },
-    { id: 2, title: "タイトル02", done: false },
-    { id: 3, title: "タイトル03", done: false },
-  ]);
+  const todos = ref<Todo[]>([]);
 
   const newTodo = ref("");
+  const SESSION_STORAGE_KEY = "todos";
+
+  onMounted(() => {
+    loadTodosFromSessionStorage();
+  });
+
+  const loadTodosFromSessionStorage = () => {
+    const storedTodos = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    if (storedTodos) {
+      todos.value = JSON.parse(storedTodos);
+    }
+  };
+
+  const saveTodosToSessionStorage = () => {
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(todos.value));
+  };
 
   const addTodo = () => {
     if (!validate()) {
@@ -26,10 +38,12 @@ export default function useTodo() {
     };
     todos.value.push(todo);
     newTodo.value = "";
+    saveTodosToSessionStorage();
   };
 
   const deleteTodo = (id: number) => {
     todos.value = todos.value.filter((todo) => todo.id !== id);
+    saveTodosToSessionStorage();
   };
 
   const toggleTodo = (id: number) => {
@@ -37,6 +51,7 @@ export default function useTodo() {
     if (todo) {
       todo.done = !todo.done;
     }
+    saveTodosToSessionStorage();
   };
 
   const validate = () => {
