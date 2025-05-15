@@ -1,7 +1,13 @@
 import { ref } from "vue";
 
-const useTodo = () => {
-  const todos = ref([
+interface Todo {
+  id: number;
+  title: string;
+  done: boolean;
+}
+
+export default function useTodo() {
+  const todos = ref<Todo[]>([
     { id: 1, title: "タイトル01", done: true },
     { id: 2, title: "タイトル02", done: false },
     { id: 3, title: "タイトル03", done: false },
@@ -22,12 +28,11 @@ const useTodo = () => {
     newTodo.value = "";
   };
 
-  const deleteTodo = (id) => {
+  const deleteTodo = (id: number) => {
     todos.value = todos.value.filter((todo) => todo.id !== id);
-    // todos.value = todos.value.filter((todo) => todo.id !== id);
   };
 
-  const toggleTodo = (id) => {
+  const toggleTodo = (id: number) => {
     const todo = todos.value.find((todo) => todo.id === id);
     if (todo) {
       todo.done = !todo.done;
@@ -48,8 +53,5 @@ const useTodo = () => {
     addTodo,
     deleteTodo,
     toggleTodo,
-    validate,
   };
-};
-
-export default useTodo;
+}

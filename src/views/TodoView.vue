@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useTodo from "../hooks/useTodo";
+import useTodo from "../hooks/useTodo.ts";
 const { todos, newTodo, addTodo, deleteTodo, toggleTodo } = useTodo();
 </script>
 
